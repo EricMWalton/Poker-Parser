@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+# debug and release folders
+**/Debug/
+**/Release/
+
+# precompiled headers
+**/ipch/
