@@ -22,7 +22,9 @@ Template Parameters
 
 Each of these templates takes two parameters, an ID for the site, and the type for the hand node of each.  For now, only the following template parameters, which are used in Merge hand histories, have been implemented:
 
-\<ID_MERGE, rapidxml::xml_node\<\>*>
+```
+<ID_MERGE, rapidxml::xml_node<>*>
+```
 
 Classes as Iterators
 --------------------
@@ -34,32 +36,21 @@ I'm open to suggestings of better ways of structuring this.
     
 Class Structure
 ---------------
-    
-template<>
-class Hand                        contains basic information about a hand: Stack sizes, # of players, etc. 
-                                  Also includes a method .advance(), for advancing to the next hand in the history,
-                                  and .firstSpot() for extracting the first Spot object in this hand. 
-                                  Also includes a pointer to a Game object
-
-template<>
-class TourneyHand : public Hand   contains Tournament-specific information and methods. 
-                                  Includes a pointer to a Tourney object
-                                  
-template<>
-class Game                        basic information about the Game...number of players seated, etc.
-
-template<>
-class Tourney : public Game       Tournament-specific information, including winnings so far.
-
-template<> Spot                   refers to a "Spot", which, in poker lingo, is a decision a player faces. 
-                                  Includes the current total in the pot, how much each player has contributed the pot, what street this is, and a pointer to the Hand object.
+ 
+| Class | Description |
+| ------ | ---------- |
+| template<> class Hand | contains basic information about a hand: stack sizes, # of players etc.  also includes a method advance(), for advancing to the next hand in the history. | 
+| template<> class TourneyHand: public Hand | contains Tournament-specific information and methods. |
+| template<> class Game | basic info about the Game: # of players seated, etc. |
+| template<> class Tourney : public Game | Tournament-specific info...prize structure, # of players, winnings so far |
+| template<> Spot | refers to a "Spot", which, in poker lingo, is a decision a player faces.  Includes the current total in the pot, how much each player has contributed, what street this is, etc. |
                                   
                                   
 Implemeting for HH Types
 ------------------------
 
 Member fcns that parse the hand history files are given empty declarations in Hand.h, TourneyHand.h, Spot.h, etc.
-The files Hand_XML.h, TourneyHand_XML.h, Spot_XML.h give template specializations for those functions, in the case of XML hand history files.
+The files Hand_merge.h, TourneyHand_merge.h, Spot_merge.h give template specializations for those functions, in the case of Merge hand history files.
 
 
 Plans to Extend
@@ -69,16 +60,21 @@ I plan to add, for cash games:
   class CashGame : public Game
   
 For HH files other than Merge, there will be a new set of header files with template specialization for different template arguments.  For example, they might be called:
+```
   Hand_Fulltilt.h, Spot_Fulltilt.h
-  
+```  
  
 Lastly, would like to include methods in Spot that allow for hypotheticals.  For instance,
 
+```
   Spot.addaction(ID_PLAYER ID_ACTION)
+```
 
 would add a hypothetical action.  Then call
 
+```
   Spot.awardpot()
+```
 
 to get the resulting stack sizes.  These could be used to analyze poker decisions.
 
