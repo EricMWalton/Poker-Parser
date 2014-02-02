@@ -15,7 +15,7 @@ Description
 
 main.cpp serves as an example application, recording into an sqlite3 database the stack sizes at the beginning of every hand, and the winnings after every tournament.  If the hand history file doesn't reach the end of the tournament, ICM values are substituted for the remaining players.  More detailed information can be extracted, especially by using the public methods of the Spot class to analyze each decision a player faces
 
-This code may contain a few bugs.  In addition, there are a few inconsistencies in the way Merge encodes hand hsitories, and error handling has not been fully checked.   
+There are a few inconsistencies in the way Merge encodes hand hsitories, and error handling has not been fully checked.   
 
 Template Parameters
 -------------------
